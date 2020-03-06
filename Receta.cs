@@ -12,23 +12,25 @@ namespace Pasteleria
     [Serializable()]
     public class Receta
     {
-        public Dictionary<string, int> ListaIngredientes = new Dictionary<string, int>();
+        private Dictionary<string, int> ListaIngredientes = new Dictionary<string, int>();
+
+       // private List<KeyValuePair<string, int>> ListaIngredientes = new List<KeyValuePair<string, int>>(); VER SI ME CONVIENE HACER UNA LISTA DE PARES
 
         public Receta()
         {
             //MessageBox.Show("INSTANCIA CREADA!");
         }
 
-        //public Dictionary<string, int> ListaIngredientes { get; set; }
-
-       
+               
         public string NombreReceta { get; set; }
 
         public string Descripcion { get; set; }
 
-        public string Horneado { get; set; }
+        public string TiempoHorneado { get; set; }
 
-       
+        public string TempHorneado { get; set; }
+
+
         public string MostrarIngredientes()
         {
             string ingredientes="";
@@ -40,6 +42,7 @@ namespace Pasteleria
 
 
             }
+            
             return ingredientes;
 
         }
@@ -50,22 +53,32 @@ namespace Pasteleria
             //MessageBox.Show(NombreReceta + '\n' + MostrarIngredientes() + '\n' + Descripcion + '\n' + Horneado + '\n');
             string newLine = Environment.NewLine;
 
-            return (NombreReceta + newLine + MostrarIngredientes() + newLine + Descripcion + newLine + Horneado + newLine);
+            return (NombreReceta + newLine + MostrarIngredientes() + newLine + Descripcion + newLine + TempHorneado + newLine + TiempoHorneado + newLine);
            
         }
 
 
-        public void CargarIngredientes(string ingrediente, int cantidad)
+        public void CargarIngredientes(string ingrediente, int cantidad) //ES UN SETTER "ESPECIAL"
         {
-
-             Dictionary<string, int> listaIng = new Dictionary<string, int>();
-
-             listaIng.Add(ingrediente, cantidad);
-
-            ListaIngredientes = listaIng;
-
-            
+           ListaIngredientes.Add(ingrediente, cantidad);
+           
         }
+
+        public int CantidadIngredientes()
+        {
+            return ListaIngredientes.Count();
+        }
+
+        public void Reset()
+        {
+            NombreReceta = "";
+            Descripcion = "";
+            ListaIngredientes.Clear();
+            TempHorneado = "";
+            TiempoHorneado = "";
+
+        }
+
 
     }
 }

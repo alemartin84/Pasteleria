@@ -14,43 +14,43 @@ namespace Pasteleria
     {
 
         private Receta recet = new Receta();
+       
         public Form1()
         {
             InitializeComponent();
             
         }
 
+        private void CargarListBoxRecetas()
+        {
+            List<string> listaRecetas = new List<string>();
+
+            listBoxRecetas.Items.Clear();
+
+            listaRecetas = EntradaSalida.LeerRecetasDb();
+            foreach (string item in listaRecetas)
+            {
+                listBoxRecetas.Items.Add(item);
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+            CargarListBoxRecetas();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             
             string nombreReceta;
-
-
-            
-            
-            
-                nombreReceta = listBoxRecetas.Text;
-            if (EntradaSalida.CheckIfRecordExists(nombreReceta))
-            {
-                EntradaSalida.DeserealizeFromSqlite(nombreReceta, ref recet); //SI EXISTE PONE EL RESULTADO DEL BLOB DE SQLITE EN EL OBJETO recet
-                txtRecetaDB.Text = recet.MostrarCompleta();
-            }
-                      
+            nombreReceta = listBoxRecetas.Text;
+         
+            EntradaSalida.DeserealizeFromSqlite(nombreReceta, ref recet); //SI EXISTE PONE EL RESULTADO DEL BLOB DE SQLITE EN EL OBJETO recet
+            txtRecetaDB.Text = recet.MostrarCompleta();
+            recet.Reset();       
               
-            else
-                
-                {
-                MessageBox.Show("no existe, carguela abajo");
-                }
            
-               
-                //Console.WriteLine("\n\nDESEA INGRESAR OTRA RECETA? Y/N:");
-
            
 
 
@@ -59,6 +59,7 @@ namespace Pasteleria
         private void buttonAgregar_Click(object sender, EventArgs e)
         {
             listBoxRecetas.Items.Add(txtBoxReceta.Text);
+            txtRecetaDB.Text = "";
            
         }
 
@@ -67,17 +68,34 @@ namespace Pasteleria
             recet.NombreReceta = listBoxRecetas.Text; //SI NO EXISTE CARGO LOS DATOS DEL OBJETO DE LA CLASE RECETA
             
             recet.Descripcion=txtDescRcp.Text;
-            recet.Horneado=txtHornoRcp.Text;
+            recet.TempHorneado=txtTempRcp.Text;
+            recet.TiempoHorneado = txtTiempoRcp.Text;
+
             EntradaSalida.SerializeToSqlite(recet); //POR AHORA LA RECETA TIENE QUE TENER INGREDIENTES
             MessageBox.Show("SE CARGO LA RECETA");
+            recet.Reset();
+
+            txtDescRcp.Text = "";
+            txtTempRcp.Text = "";
+            txtTiempoRcp.Text = "";
+            txtIngRcp.Text = "";
+            txtCantRcp.Text = "";
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            //recet.CargarIngredientes(txtIngRcp.Text, int.Parse(txtCantRcp.Text));
-            recet.ListaIngredientes.Add(txtIngRcp.Text, int.Parse(txtCantRcp.Text));
-            MessageBox.Show("SE AGREGO UN ITEM, VAN: " + recet.ListaIngredientes.Count());
+            recet.CargarIngredientes(txtIngRcp.Text, int.Parse(txtCantRcp.Text));
             
+            MessageBox.Show("SE AGREGO UN ITEM, VAN: " + recet.CantidadIngredientes());
+            
+        }
+
+        private void buttonBorrarDB_Click(object sender, EventArgs e)
+        {
+            EntradaSalida.BorrarRecetaDB(listBoxRecetas.Text);
+            CargarListBoxRecetas();
+            txtRecetaDB.Text = "";
         }
     }
 }

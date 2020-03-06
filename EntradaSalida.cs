@@ -187,6 +187,50 @@ namespace Pasteleria
 
         }
 
+        public static List<string> LeerRecetasDb()
+        {
+            List<string> listaRecetas = new List<string>();
+
+            string cs = FILEDB; //COMMIT
+
+            var con = new SQLiteConnection(cs);
+            con.Open();
+
+
+            string stm = "SELECT NombreReceta FROM Recetas";
+
+            var cmd = new SQLiteCommand(stm, con);
+
+            var reader = cmd.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                int i=0;
+                listaRecetas.Add(reader.GetString(i));
+                i++;
+            }
+
+
+                return listaRecetas;
+        }
+
+        public static void BorrarRecetaDB(string nombreReceta)
+        {
+            
+            string cs = FILEDB; //COMMIT
+
+            var con = new SQLiteConnection(cs);
+            con.Open();
+
+
+            string stm = "DELETE FROM Recetas WHERE NombreReceta='" + nombreReceta + "'";
+
+            var cmd = new SQLiteCommand(stm, con);
+            cmd.ExecuteNonQuery();
+
+          
+        }
+
         public static bool CheckIfRecordExists(String record)
         {
             string cs = FILEDB; 
