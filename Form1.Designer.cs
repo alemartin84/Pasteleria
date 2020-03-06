@@ -41,6 +41,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.txtTiempoRcp = new System.Windows.Forms.TextBox();
             this.buttonBorrarDB = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ingredientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxRecetas
@@ -151,6 +154,23 @@
             this.buttonBorrarDB.UseVisualStyleBackColor = true;
             this.buttonBorrarDB.Click += new System.EventHandler(this.buttonBorrarDB_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingredientesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(888, 24);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // ingredientesToolStripMenuItem
+            // 
+            this.ingredientesToolStripMenuItem.Name = "ingredientesToolStripMenuItem";
+            this.ingredientesToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.ingredientesToolStripMenuItem.Text = "Ingredientes";
+            this.ingredientesToolStripMenuItem.Click += new System.EventHandler(this.ingredientesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,9 +189,13 @@
             this.Controls.Add(this.buttonLeerDB);
             this.Controls.Add(this.txtRecetaDB);
             this.Controls.Add(this.listBoxRecetas);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "ABM DE RECETAS";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +216,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtTiempoRcp;
         private System.Windows.Forms.Button buttonBorrarDB;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ingredientesToolStripMenuItem;
     }
 }
 

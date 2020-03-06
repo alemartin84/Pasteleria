@@ -97,5 +97,14 @@ namespace Pasteleria
             CargarListBoxRecetas();
             txtRecetaDB.Text = "";
         }
+
+        private void ingredientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormIngredientes formIngredientes = new FormIngredientes();
+
+            formIngredientes.Show();
+
+           
+        }
     }
 }
